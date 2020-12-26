@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<div class="jumbotron">
+    <div  style="text-align: center;">
+        <h1>Welcome to Buddy Circle</h1>
+        <h3>An exclusive platform to connect friends </h3>
+
+        <h5>Join Our community</h5>
+        <p>With supporting people and friends meet up</p>
+
+        <a class="btn btn-dark" href="{%url 'accounts:signup'%}">Sign Up</a>
+        <a class="btn btn-dark" href="{%url 'accounts:login'%}">Login</a>
+    </div>
+</div>
+
+{% endblock content %}
+    

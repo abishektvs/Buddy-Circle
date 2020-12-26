@@ -1,0 +1,14 @@
+{% extends "user_homepage_base.html" %}
+{% load bootstrap4 %}
+
+{% block user_base %}
+    <h4>Edit Details</h4>
+    <form method="POST" id="postForm">
+        {% csrf_token %}
+        {% bootstrap_form form %}
+        {% buttons %}
+            <button type="submit" class="btn btn-dark btn-large">Save details</button>
+            <a class='btn btn-dark' href="{%url 'accounts:userprofile' pk=user.id %}">Go back to details</a>
+        {% endbuttons %}
+    </form>
+{% endblock %}

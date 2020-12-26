@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="row">
+    <div class="col-md-3">
+        <div class="card">
+          <div class="card-header text-center">
+            {% if user.profile.profile_pic != none %}
+            <img src="{% static 'profilepics/malepropic.jpg' %}" alt="..." class=" rounded-circle" height="60px" width="80px">
+            {% elif user.profile.gender == 'Male' %}
+            <img src="{% static 'profilepics/malepropic.jpg' %}" alt="..." class=" rounded-circle" height="60px" width="80px">
+            {% else %}
+            <img src="{% static 'profilepics/femalepropic.jpg' %}" alt="..." class=" rounded-circle" height="60px" width="80px">
+            {% endif %}
+            <h3 class="card-text">{{request.user.username | upper }}</h3>
+            <br>
+            <a class="card-link btn btn-dark" href="{% url 'homefeed' username=user.username %}">Home</a>
+            <a class="card-link btn btn-dark" href="{% url 'accounts:allusers' %}">Find friends</a>
+          </div>
+          <div class="card-body">
+            <h4 class="card-title">Bio</h4>
+            <p class="card-text">
+              {% if request.user.profile.bio %} {{ request.user.profile.bio }}.
+              {% else %} Add text to describe yourself and reach out friends with interesting contents.
+              {% endif %} 
+            </p>
+          </div>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item bg-light"><a class="text-dark" href="{%url 'accounts:userprofile' pk=user.id %}">My Account</a></li>
+              <li class="list-group-item bg-light">
+                <a class="text-dark" href="{%url 'accounts:friendlist' user_name=user.username%}">Friends 
+                  <span class="badge badge-secondary">{{request.user.user_ref.count}}</span>
+               </a>
+              </li>
+              <li class="list-group-item bg-light"><a class="text-dark" href="{% url 'groups:all' %}">Groups</a></li>
+            </ul>
+            <div class="card-body">
+              <a class="card-link btn btn-dark" href="{% url 'accounts:logout' %}">Logout</a>
+              <a class="card-link btn btn-dark" href="{% url 'posts:create' %}"><span class="fa fa-angellist"></span> Add Post</a>
+            </div>
+          </div>
+    </div>
+    <div class="col-md-9">
+      <!-- <div class="card"> -->
+        <div class="card-header text-muted">
+            <p class="text-right">Since {{request.user.date_joined}}</p>
+        </div>
+      <!-- </div> -->
+        <div class="jumbotron" style="background-color: whitesmoke;">
+          {% block user_base %}
+
+          {% endblock %}
+        </div>
+    </div>        
+{% endblock content %}
+    

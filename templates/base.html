@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap CDN -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" integrity="sha384-w1Q4orYjBQndcko6MimVbzY0tgp4pWB4lZ7lr30WKz0vr/aWKhXdBNmNb5D92v7s" crossorigin="anonymous"></script><!-- Cloudfare Font CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+    <title>Buddy Circle</title>
+</head>
+<body>
+    {% load static %}
+    <div class="container">
+        <nav class='navbar navbar-expand-md navbar-light '>
+            {% if user.is_authenticated %}
+            <a class="navbar-brand" href="{% url 'homefeed' username=user.username %}" >
+            {% else %}
+            <a class="navbar-brand" href="{% url 'indexpage' %}" >
+            {% endif %}
+            
+                <img src="{% static '68543.png' %}" width="30" height="30" alt="" loading="lazy">
+                <strong>Buddy Circle</strong>
+            </a>
+            <button class="navbar-toggler navbar-light" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ml-auto" >
+                    {% if user.is_authenticated %}
+                    <li style="color: black;">
+                    <a class="navbar nav-item nav-link mb-0 h6" href="{% url 'groups:all' %}" >Groups</a>
+                    </li>
+                    <li><a class="nav-item nav-link mb-0 h6" href="{% url 'groups:create' %}">Create groups</a></li>
+                    <li><a class="nav-item nav-link mb-0 h6" href="{% url 'posts:create' %}">Post</a></li>
+                    <li class="nav-item dropdown nav-right">
+                        <a class="nav-link dropdown-toggle mb-0 h6" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          Account
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <a class="dropdown-item" href="{%url 'accounts:friendlist' user_name=request.user.username%}">My Friends</a>
+                            <a class="dropdown-item" href="{%url 'accounts:userprofile' pk=request.user.id %}">User Account</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="{% url 'accounts:logout' %}">Logout</a>
+                        </div>
+                      </li>
+                    {% else %}
+                    <li><a class="nav-item nav-link mb-0 h6" href="{% url 'groups:all' %}" >Groups</a></li>
+                    <li><a class="nav-item nav-link mb-0 h6" href="{%url 'accounts:signup'%}">Sign Up</a></li>
+                    <li><a class="nav-item nav-link mb-0 h6" href="{%url 'accounts:login'%}">Login</a></li>
+                    {% endif %}
+                    <li><a class="nav-item nav-link btn text-light btn-dark" href="https://www.linkedin.com/in/abishektvs/" target="_blank" >Creator</a></li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+    <div class="container">
+    <!-- <div class="jumbotron"> -->
+        {% block content %}
+        {% endblock content %}
+    </div>
+    </div>
+
+</body>
+</html>

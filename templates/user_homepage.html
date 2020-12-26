@@ -1,0 +1,27 @@
+{% extends "user_homepage_base.html" %}
+{% load humanize %}
+{% load static %}
+{% block user_base %}
+<!-- </div> -->
+	{% for post in post_list %}
+	<div class="card text-left">
+		<div class="card-header">
+			<a href="{% url 'posts:for_user' username=post.user.username %}">
+				<img class="rounded-circle mr-3" src="{% static 'profilepics/malepropic.jpg' %}" alt="Generic placeholder image" height="25px" width="25px">
+				<strong>{{ post.user.username }}</strong>
+			</a>
+		</div>
+		<div class="card-body">
+			<h5 class="card-title">Special title treatment</h5>
+			<p class="card-text">{{ post.message_html|safe }}</p>
+			{% if post.group %}
+			<span class="card-text"><a href="#">{{ post.group.name }}</a></span>
+			{% endif %}
+			  <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
+		</div>
+		<div class="card-footer text-muted">
+			<time class="time">Posted on - {{ post.created_at }}</time>
+		</div>
+	</div>
+	{% endfor %}
+{% endblock %}

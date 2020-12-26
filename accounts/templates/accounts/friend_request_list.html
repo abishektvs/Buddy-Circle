@@ -1,0 +1,15 @@
+{% extends "user_homepage_base.html" %}
+
+{% block user_base %}
+    {% if friend_requests.count != 0 %}
+        {% for requests in friend_requests %}
+            {{ requests.user_requested.username }}
+            <a href="{%url 'accounts:addfriend' friendname=requests.user_requested.username %}" class="btn btn-secondary">Accept</a>
+        {% endfor %}
+    {% else %}
+        <div class='text-center'>
+            <h4>No friend requests</h4>
+            <h6>Try finding new friends</h6>
+        </div>
+    {% endif %}
+{% endblock %}
