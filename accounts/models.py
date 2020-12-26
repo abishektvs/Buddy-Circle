@@ -35,15 +35,12 @@ def create_user_profile(sender, instance, created, **kwargs):
     if created:
         Profile.objects.create(user=instance)
 
-# @receiver(post_save, sender=auth.get_user_model())
-# def save_user_profile(sender, instance, **kwargs):
-#     instance.profile.save()
-
 class Friends(models.Model):
     REQUEST_STATUS_CHOICES = [
         ( 'NR', 'No request'),
         ( 'SENT', 'Request Sent'),
-        ( 'DONE', 'Accepted Request')
+        ( 'DONE', 'Accepted Request'),
+        ( 'BLOCK', 'blocked')
     ]
     user_requested = models.ForeignKey(auth.get_user_model(), related_name="user_ref", on_delete=models.CASCADE)
     friend = models.ForeignKey(auth.get_user_model(), related_name="user_friend", on_delete=models.CASCADE)

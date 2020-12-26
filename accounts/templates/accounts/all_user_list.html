@@ -5,7 +5,9 @@
     <br>
     {% for user_account in useraccounts %}
         {% if user_account.username != user.username %}
-            <a class="text-dark" href="{% url 'accounts:userprofile' pk=user_account.id %}">
+        <div class="row">
+        <div class="col-md-8">
+        <a class="text-dark" href="{% url 'accounts:userprofile' pk=user_account.id %}">
                 <div class="media">
                     <img class="rounded-circle mr-3" src="{% static 'profilepics/malepropic.jpg' %}" alt="Generic placeholder image" height="50px" width="50px">
                     <div class="media-body">
@@ -14,6 +16,10 @@
                     </div>
                 </div>
             </a>
+        </div>
+        <div class="col-md-4">
+            <a class="btn btn-secondary text-light"><span class="fa fa-plus"></span>follow</a>
+        </div></div>
         <hr>
         {% endif %}
     {% endfor %}

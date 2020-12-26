@@ -1,10 +1,23 @@
 {% extends "user_homepage_base.html" %}
-
+{% load static %}
 {% block user_base %}
     {% if friend_requests.count != 0 %}
         {% for requests in friend_requests %}
-            {{ requests.user_requested.username }}
-            <a href="{%url 'accounts:addfriend' friendname=requests.user_requested.username %}" class="btn btn-secondary">Accept</a>
+        <div class="card border-dark mb-3">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-xs-4 col-sm-4 col-md-2">
+                        <img src="{% static 'profilepics/malepropic.jpg' %}" alt="..." class="rounded-circle card-img-left" height="100px" width="100px">
+                    </div>
+                    <div class="col-md-9">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ requests.user_requested.username | upper }}</h5>
+                            <a href="{%url 'accounts:addfriend' friendname=requests.user_requested.username %}" class="btn btn-primary">Accept follow</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         {% endfor %}
     {% else %}
         <div class='text-center'>

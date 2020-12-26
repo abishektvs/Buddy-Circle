@@ -32,25 +32,20 @@ class SignUp(CreateView):
     template_name = 'accounts/signup.html'
     success_url = reverse_lazy('login')
 
-
 class UserProfileView(LoginRequiredMixin, DetailView):
     model = User
     template_name = 'accounts/userdetails.html'
-
-    def get_queryset(self):
-        if self.request.user.id != self.kwargs.get('pk'):
-            check_friendship = Friends.objects.filter(
-                                                    user_requested=self.request.user, 
-                                                    friend__id=self.kwargs.get('pk'),
-                                                        request_status='DONE'
-                                                                )
-            print(check_friendship)
-            if check_friendship is not None:
-                print('inside')
-                return User.objects.filter(id=self.kwargs.get('pk'))
-        else:
-            print('else')
-            return super().get_query_set()
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        requested_user = context['user']
+        following = Friends.objects.filter(user_requested=requested_user,request_status='DONE').count()
+        followers = Friends.objects.filter(friend=requested_user,request_status='DONE').count()
+        context["followers_count"] = followers
+        context["following_count"] = following
+        print(context['user'])
+        print(context)
+        return context
 
 class EditUserProfile(LoginRequiredMixin, UpdateView):
     model = Profile
