@@ -3,15 +3,15 @@
 {% block user_base %}
     <div class="row">
         <div class="col-md-6">
-            <h2>My Friends</h2>
+            <h2>My Following</h2>
         </div>
         <div class="col-md-6 text-right">
-            <a href="{%url 'accounts:friend_request_list' username=user.username %}" class="btn btn-secondary">friend Requests</a>
+            <a href="{%url 'accounts:follow_requests' username=user.username %}" class="btn btn-secondary">follow Requests</a>
         </div>
     </div>
     <br>
-    {% if friends_list.count != 0 %}
-        {% for friends in friends_list %}
+    {% if following_list.count != 0 %}
+        {% for following in following_list %}
         <div class="card border-dark mb-3">
             <div class="card-body">
                 <div class="row">
@@ -20,18 +20,18 @@
             </div>
                 <div class="col-md-9">
                     <div class="card-body">
-                        <h5 class="card-title">{{ friends.friend.username | upper }}</h5>
-                        <p class="card-text">Together since {{ friends.hand_shaked_on }}</p>
-                        <a href="{%url 'accounts:removefriend' friendname=friends.friend.username %}" class="btn btn-primary">Remove friend</a>
+                        <h5 class="card-title">{{ following.friend.username | upper }}</h5>
+                        <p class="card-text">Started following on {{ following.hand_shaked_on }}</p>
                     </div>
                 </div>
             </div>
         </div>
+        </div>
         {% endfor %}
     {% else %}
     <div class='text-center'>
-        <h4>No friends</h4>
-        <h6>Try finding new friends</h6>
+        <h4>No following</h4>
+        <h6>Try finding new buddies</h6>
     </div>
     {% endif %}
 {% endblock %}

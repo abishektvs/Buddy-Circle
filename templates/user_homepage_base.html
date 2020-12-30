@@ -12,10 +12,10 @@
             {% else %}
             <img src="{% static 'profilepics/femalepropic.jpg' %}" alt="..." class=" rounded-circle" height="60px" width="80px">
             {% endif %}
-            <h3 class="card-text">{{request.user.username | upper }}</h3>
+            <h3 class="card-text mt-3 mb-0">{{request.user.username | upper }}</h3>
             <br>
-            <a class="card-link btn btn-dark" href="{% url 'homefeed' username=user.username %}">Home</a>
-            <a class="card-link btn btn-dark" href="{% url 'accounts:allusers' %}">Find friends</a>
+            <a class="card-link btn btn-dark" href="{% url 'homefeed' username=request.user.username %}">Home</a>
+            <a class="card-link btn btn-dark" href="{% url 'accounts:allusers' %}">Find Buddies</a>
           </div>
           <div class="card-body">
             <h4 class="card-title">Bio</h4>
@@ -26,8 +26,8 @@
             </p>
           </div>
             <ul class="list-group list-group-flush">
-              <li class="list-group-item bg-light"><a class="text-dark" href="{%url 'accounts:userprofile' pk=request.user.id %}">My Account</a></li>
-              <li class="list-group-item bg-light"><a class="text-dark" href="{% url 'posts:all' %}">My posts</a></li>
+              <li class="list-group-item bg-light"><a class="text-dark" href="{%url 'accounts:userprofile' pk=request.user.id %}">My Profile</a></li>
+              <li class="list-group-item bg-light"><a class="text-dark" href="{% url 'posts:for_user' username=request.user.username  %}">My posts</a></li>
               <li class="list-group-item bg-light"><a class="text-dark" href="{% url 'groups:all' %}">Groups</a></li>
             </ul>
             <div class="card-body">
@@ -38,11 +38,11 @@
     </div>
     <div class="col-md-9">
       <!-- <div class="card"> -->
-        <div class="card-header text-muted">
+        <div class="container text-muted">
             <p class="text-right">Since {{request.user.date_joined}}</p>
         </div>
       <!-- </div> -->
-        <div class="jumbotron" style="background-color: whitesmoke;">
+        <div class="container" style="background-color: white;">
           {% block user_base %}
 
           {% endblock %}

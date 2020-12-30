@@ -41,8 +41,9 @@
                           Account
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <a class="dropdown-item" href="{%url 'accounts:friendlist' user_name=request.user.username%}">My Friends</a>
-                            <a class="dropdown-item" href="{%url 'accounts:userprofile' pk=request.user.id %}">User Account</a>
+                            <a class="dropdown-item" href="{%url 'accounts:followers_list' username=request.user.username%}">Followers</a>
+                            <a class="dropdown-item" href="{%url 'accounts:following_list' username=request.user.username%}">Following</a>
+                            <a class="dropdown-item" href="{%url 'accounts:userprofile' pk=request.user.id %}">User Profile</a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="{% url 'accounts:logout' %}">Logout</a>
                         </div>

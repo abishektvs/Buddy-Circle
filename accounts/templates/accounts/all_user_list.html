@@ -5,21 +5,15 @@
     <br>
     {% for user_account in useraccounts %}
         {% if user_account.username != user.username %}
-        <div class="row">
-        <div class="col-md-8">
         <a class="text-dark" href="{% url 'accounts:userprofile' pk=user_account.id %}">
-                <div class="media">
-                    <img class="rounded-circle mr-3" src="{% static 'profilepics/malepropic.jpg' %}" alt="Generic placeholder image" height="50px" width="50px">
-                    <div class="media-body">
-                    <h5 class="mt-0">{{ user_account.username | lower }}</h5>
-                    <h6 class="mb-0 text-muted">{{ user_account.get_full_name }}</h6>
-                    </div>
+            <div class="media">
+                <img class="rounded-circle mr-3" src="{% static 'profilepics/malepropic.jpg' %}" alt="Generic placeholder image" height="50px" width="50px">
+                <div class="media-body">
+                <h5 class="mt-0">{{ user_account.username | lower }}</h5>
+                <h6 class="mb-0 text-muted">{{ user_account.get_full_name }}</h6>
                 </div>
-            </a>
-        </div>
-        <div class="col-md-4">
-            <a class="btn btn-secondary text-light"><span class="fa fa-plus"></span>follow</a>
-        </div></div>
+            </div>
+        </a>
         <hr>
         {% endif %}
     {% endfor %}

@@ -7,12 +7,12 @@
 	<div class="card text-left">
 		<div class="card-header">
 			<a href="{% url 'posts:for_user' username=post.user.username %}">
-				<img class="rounded-circle mr-3" src="{% static 'profilepics/malepropic.jpg' %}" alt="Generic placeholder image" height="25px" width="25px">
+				<img class="rounded-circle mr-3" src="{{ MEDIA_URL }}{{ user.profile.profile_pic.url }}" alt="not available" height="25px" width="25px">
 				<strong>{{ post.user.username }}</strong>
 			</a>
 		</div>
 		<div class="card-body">
-			<h5 class="card-title">Special title treatment</h5>
+			<!-- <h5 class="card-title">Special title treatment</h5> -->
 			<p class="card-text">{{ post.message_html|safe }}</p>
 			{% if post.group %}
 			<span class="card-text"><a href="#">{{ post.group.name }}</a></span>

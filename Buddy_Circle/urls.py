@@ -15,6 +15,8 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.conf import settings
+from django.conf.urls.static import static
 from . import views
 from posts.views import UserHomeFeed
 
@@ -28,4 +30,4 @@ urlpatterns = [
     path("home/<slug:username>/", UserHomeFeed.as_view(),name="homefeed"),
     path('<slug:username>/home', views.UserHome.as_view(), name='homepage'),
     path('exit/', views.exitpage.as_view(), name='exitpage'),
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

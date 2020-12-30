@@ -2,27 +2,38 @@
 {% load static %}
 {% block user_base %}
 <div class="container">
-    
-    <p class="row"><h3 class="col-md-4">My Account</h3>
-    <li class="list-group-item bg-light col-md-4">
-        <a class="text-dark" href="{%url 'accounts:friendlist' user_name=user.username%}">Followers
-          <span class="badge badge-secondary">{{followers_count}}</span>
-       </a>
-       <a class="text-dark text-right" href="{%url 'accounts:friendlist' user_name=user.username%}">Following
-        <span class="badge badge-secondary ">{{following_count}}</span>
-     </a>
-    </li></p>
+    <div class="row">
+        <div class="col-md-8">
+            {% if user.username == request.user.username %}
+            <h3>My Profile</h3>
+            {% else %}
+            <h3>{{ user.username|upper }}'s Profile</h3>
+            {% endif %}
+        </div>
+        <div class="col-md-4 text-center">
+            <li class="list-group-item bg-light">
+                <a class="text-dark" href="{%url 'accounts:followers_list' username=user.username%}">Followers
+                <span class="badge badge-secondary">{{followers_count}}</span>
+                </a>
+                <a class="text-dark" href="{%url 'accounts:following_list' username=user.username%}">Following
+                <span class="badge badge-secondary ">{{following_count}}</span>
+                </a>
+            </li>
+        </div>
+    </div>
+    <img src="{{ MEDIA_ROOT }}{{user.profile.profile_pic}}" alt="">
     <h5 class="font-weight-normal">Username : {{ user.username }}</hg>
     <h5 class="font-weight-normal">First Name : {{ user.first_name }} </h5>
     <h5 class="font-weight-normal">Last Name : {{ user.last_name }}</h5>
     <h5 class="font-weight-normal">Email: {{user.email}}</h5>
     <h5 class="font-weight-normal">Date of birth: {{user.profile.dob}}</h5>
+    <h5 class="font-weight-normal">Gender: {{user.profile.gender}}</h5>
     <h5 class="font-weight-normal">Age: {{user.profile.age}}</h5>
     <br>
     {% if user.username == request.user.username %}
-    <a class='btn btn-secondary' href="{% url 'accounts:edituserdetails' pk=user.profile.id %}">Edit details</a>
+    <a class='btn btn-secondary' href="{% url 'accounts:edit_userprofile' pk=user.profile.id %}">Edit details</a>
     {% else %}
-    <a class='btn btn-secondary' href="{% url 'accounts:friendreq' friendname=user.username %}">follow request</a>
+    <a class='btn btn-secondary' href="{% url 'accounts:send_follow_request' follower_username=user.username %}">follow request</a>
     {% endif %}
 </div>
 {% endblock %}

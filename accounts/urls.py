@@ -6,14 +6,19 @@ app_name = 'accounts'
 
 urlpatterns = [
     path('signup/', views.SignUp.as_view(), name='signup'),
-    path('login/', views.MyLoginView.as_view(template_name='accounts/login.html'),name='login'),
-    path('logout/', auth_views.LogoutView.as_view(), name='logout'),
-    path('addfriend/<slug:friendname>/', views.SendFriendRequest.as_view(), name='friendreq'),
-    path('friend-requests/for/<slug:username>', views.FriendRequestsList.as_view(), name='friend_request_list'),
-    path('<slug:user_name>/friend-list/', views.FriendListView.as_view(), name='friendlist'),
-    path('friendrequest/to/<slug:friendname>/', views.AcceptFriendRequest.as_view(), name='addfriend'),
-    path('remove-friend/<slug:friendname>/', views.RemoveFriend.as_view(), name='removefriend'),
-    path('account-details/for/<pk>/', views.UserProfileView.as_view(), name='userprofile'),
+    path('login/', views.Login.as_view(template_name='accounts/login.html'), name='login'),
     path('all-users/in-buddycircle', views.AllUserView.as_view(), name='allusers'),
-    path('edit-details/for/<pk>/', views.EditUserProfile.as_view(), name='edituserdetails')
+    path('profile-details/for/<pk>/', views.UserProfileView.as_view(), name='userprofile'),
+    path('edit-profile-details/for/<pk>/', views.EditUserProfile.as_view(), name='edit_userprofile'),
+    path('follow-requests/for/<slug:username>/', views.FollowRequests.as_view(), name='follow_requests'),
+    path('followed/by/<slug:username>/', views.FollowingList.as_view(), name='following_list'),
+    path('<slug:username>/following/', views.FollowersList.as_view(), name='followers_list'),
+    path('send-request/to/<slug:follower_username>/', 
+        views.SendFollowRequest.as_view(), name='send_follow_request'
+    ),
+    path('accept-follow-request/from/<slug:follower_username>/', 
+        views.AcceptFollowRequest.as_view(), name='accept_request'
+    ),
+    path('remove/<slug:follower_username>/', views.UnFollowUser.as_view(), name='unfollow'),
+    path('logout/', auth_views.LogoutView.as_view(), name='logout')
 ]

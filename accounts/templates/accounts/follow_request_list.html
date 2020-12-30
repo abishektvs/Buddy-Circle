@@ -1,8 +1,8 @@
 {% extends "user_homepage_base.html" %}
 {% load static %}
 {% block user_base %}
-    {% if friend_requests.count != 0 %}
-        {% for requests in friend_requests %}
+    {% if follow_requests.count != 0 %}
+        {% for requests in follow_requests %}
         <div class="card border-dark mb-3">
             <div class="card-body">
                 <div class="row">
@@ -11,8 +11,8 @@
                     </div>
                     <div class="col-md-9">
                         <div class="card-body">
-                            <h5 class="card-title">{{ requests.user_requested.username | upper }}</h5>
-                            <a href="{%url 'accounts:addfriend' friendname=requests.user_requested.username %}" class="btn btn-primary">Accept follow</a>
+                            <h5 class="card-title">{{ requests.requested_from.username | upper }}</h5>
+                            <a href="{% url 'accounts:accept_request' follower_username=requests.requested_from.username %}" class="btn btn-primary">Accept follow</a>
                         </div>
                     </div>
                 </div>
@@ -21,8 +21,8 @@
         {% endfor %}
     {% else %}
         <div class='text-center'>
-            <h4>No friend requests</h4>
-            <h6>Try finding new friends</h6>
+            <h4>No follow requests</h4>
+            <h6>Try finding new buddies</h6>
         </div>
     {% endif %}
 {% endblock %}
