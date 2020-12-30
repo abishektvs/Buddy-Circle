@@ -12,21 +12,24 @@
     <br>
     {% if followers_list.count != 0 %}
         {% for followers in followers_list %}
-        <div class="card border-dark mb-3">
-        <div class="card-body">
-                <div class="row">
-            <div class="col-xs-4 col-sm-4 col-md-2">
-                <img src="{% static 'profilepics/femalepropic.jpg' %}" alt="..." class="rounded-circle card-img-left" height="100px" width="100px">
-            </div>
-                <div class="col-md-9">
-                    <div class="card-body">
-                        <h5 class="card-title">{{ followers.requested_from.username | upper }}</h5>
-                        <p class="card-text">following since {{ followers.hand_shaked_on }}</p>
+            <div class="card border-dark mb-3">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-xs-4 col-sm-4 col-md-2">
+                            <img src="{% static 'profilepics/femalepropic.jpg' %}" alt="..." class="rounded-circle card-img-left" height="100px" width="100px">
+                        </div>
+                        <div class="col-md-9">
+                            <div class="card-body">
+                                <a href="{% url 'accounts:userprofile' pk=followers.requested_from.id %}">
+                                    <h5 class="card-title">{{ followers.requested_from.username | upper }}</h5>
+                                    <h6>{{ following.requested_to.get_full_name }}</h6>
+                                    <p class="card-text">following since {{ followers.hand_shaked_on }}</p>
+                                </a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
         {% endfor %}
     {% else %}
     <div class='text-center'>

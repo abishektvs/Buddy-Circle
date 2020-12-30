@@ -37,6 +37,18 @@ class userCreateForm(UserCreationForm):
 
 
 class UserProfileform(forms.ModelForm):
+    gender = forms.ChoiceField(
+        choices=(
+            ('M', _('Male')),
+            ('F', _('Female'))
+        ), 
+        widget=forms.RadioSelect
+    )
+    dob = forms.DateField(
+        label=_('Date of Birth'),
+        widget= forms.DateInput(
+            attrs={'type': 'date',}))
+
     class Meta:
         model = Profile
         # exclude = ('user',)
@@ -44,12 +56,4 @@ class UserProfileform(forms.ModelForm):
         fields = ['bio', 'dob', 'gender', 'profile_pic']
         widgets = {
             'bio': forms.Textarea(attrs={'cols': 80, 'rows': 3}),
-            'dob': forms.DateInput(
-                        format =( r'%d/%m/%Y'),
-                        attrs={'type':'date','value':'23-03-1999'}
-                    ),
-            'gender': forms.RadioSelect()
-        }
-        labels = {
-            'dob': _('Date of Birth'),
         }

@@ -3,18 +3,25 @@
 {% block user_base %}
 <h2>All Users</h2>
     <br>
-    {% for user_account in useraccounts %}
-        {% if user_account.username != user.username %}
-        <a class="text-dark" href="{% url 'accounts:userprofile' pk=user_account.id %}">
-            <div class="media">
-                <img class="rounded-circle mr-3" src="{% static 'profilepics/malepropic.jpg' %}" alt="Generic placeholder image" height="50px" width="50px">
-                <div class="media-body">
-                <h5 class="mt-0">{{ user_account.username | lower }}</h5>
-                <h6 class="mb-0 text-muted">{{ user_account.get_full_name }}</h6>
+    {% if useraccounts.count > 1 %}
+        {% for user_account in useraccounts %}
+            {% if user_account.username != user.username %}
+            <a class="text-dark" href="{% url 'accounts:userprofile' pk=user_account.id %}">
+                <div class="media">
+                    <img class="rounded-circle mr-3" src="{% static 'profilepics/malepropic.jpg' %}" alt="Generic placeholder image" height="50px" width="50px">
+                    <div class="media-body">
+                    <h5 class="mt-0">{{ user_account.username | lower }}</h5>
+                    <h6 class="mb-0 text-muted">{{ user_account.get_full_name }}</h6>
+                    </div>
                 </div>
-            </div>
-        </a>
-        <hr>
-        {% endif %}
-    {% endfor %}
+            </a>
+            <hr>
+            {% endif %}
+        {% endfor %}
+    {% else %}
+    <div class='text-center'>
+        <h4>No Active users</h4>
+        <h6>Building new community</h6>
+    </div>
+    {% endif %}
 {% endblock %}

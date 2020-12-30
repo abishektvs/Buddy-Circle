@@ -20,7 +20,7 @@ class Profile(models.Model):
         )
     user = models.OneToOneField(auth.get_user_model(), null=True, on_delete=models.CASCADE)
     bio = models.TextField(null=True, blank='', default='')
-    profile_pic = models.ImageField(upload_to='profilepics/', null=True, blank=False)
+    profile_pic = models.ImageField(upload_to='profilepics/', null=True, blank=True)
     gender = models.CharField(max_length=1, choices=GENDERS, null=True, blank=False)
     dob = models.DateField(null=True, blank=False) 
     age = models.PositiveIntegerField(null=True, blank=True)

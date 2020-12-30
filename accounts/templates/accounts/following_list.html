@@ -16,12 +16,15 @@
             <div class="card-body">
                 <div class="row">
             <div class="col-xs-4 col-sm-4 col-md-2">
-                <img src="{% static 'profilepics/femalepropic.jpg' %}" alt="..." class="rounded-circle card-img-left" height="100px" width="100px">
+                <img src="{{ following.requested_from.profile.profilepic.url }}" alt="" class="rounded-circle card-img-left" height="100px" width="100px">
             </div>
                 <div class="col-md-9">
                     <div class="card-body">
-                        <h5 class="card-title">{{ following.friend.username | upper }}</h5>
-                        <p class="card-text">Started following on {{ following.hand_shaked_on }}</p>
+                        <a href="{% url 'accounts:userprofile' pk=following.requested_to.id %}" class="text-dark">
+                            <h5 class="card-title">{{ following.requested_to.username }}</h5>
+                            <h6>{{ following.requested_to.get_full_name }}</h6>
+                            <p class="card-text">Started following on {{ following.hand_shaked_on }}</p>
+                        </a>
                     </div>
                 </div>
             </div>

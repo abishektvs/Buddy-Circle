@@ -39,6 +39,13 @@ class SignUp(CreateView):
         signup_user_profile.save()
         return super().form_valid(form)
 
+class AllUserView(LoginRequiredMixin, ListView):
+    model = User
+    template_name = 'accounts/all_user_list.html'
+    context_object_name = 'useraccounts'
+    def get_queryset(self): 
+        return User.objects.select_related('profile').order_by('username')
+
 class UserProfileView(LoginRequiredMixin, DetailView):
     model = User
     template_name = 'accounts/userdetails.html'
@@ -58,33 +65,24 @@ class EditUserProfile(LoginRequiredMixin, UpdateView):
     model = Profile
     template_name = 'accounts/edit_userdetails.html'
     form_class = forms.UserProfileform
+
     def get(self, request, *args, **kwargs):
         if int(self.kwargs.get('pk')) != self.request.user.profile.id:
             return HttpResponseRedirect(reverse("accounts:userprofile",kwargs={"pk": self.request.user.id}))
         else:
             return super().get(request, *args, **kwargs)
 
-    # def form_valid(self, form):
-    #     print(form)
-
-    #     requested_user = form.save(commit=False)
-    #     print(requested_user.profile_pic)
-    #     form_input = self.request.POST
-    #     requested_user.user.username = form_input['username']
-    #     requested_user.user.first_name = form_input['firstname']
-    #     requested_user.user.last_name = form_input['lastname']
-    #     requested_user.user.save()
-    #     return super().form_valid(form)
+    def form_valid(self, form):
+        requested_user = form.save(commit=False)
+        form_input = self.request.POST
+        requested_user.user.username = form_input['username']
+        requested_user.user.first_name = form_input['firstname']
+        requested_user.user.last_name = form_input['lastname']
+        requested_user.user.save()
+        return super().form_valid(form)
 
     def get_success_url(self, *args, **kwargs):
         return reverse("accounts:userprofile", kwargs={'pk':self.request.user.id})
-    
-class AllUserView(LoginRequiredMixin, ListView):
-    model = User
-    template_name = 'accounts/all_user_list.html'
-    context_object_name = 'useraccounts'
-    def get_queryset(self): 
-        return User.objects.select_related('profile').order_by('username')
 
 class FollowRequests(LoginRequiredMixin, ListView):
     model = Buddy

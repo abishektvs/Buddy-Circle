@@ -5,14 +5,8 @@
     <div class="col-md-3">
         <div class="card">
           <div class="card-header text-center">
-            {% if user.profile.profile_pic != none %}
-            <img src="{% static 'profilepics/malepropic.jpg' %}" alt="..." class=" rounded-circle" height="60px" width="80px">
-            {% elif user.profile.gender == 'Male' %}
-            <img src="{% static 'profilepics/malepropic.jpg' %}" alt="..." class=" rounded-circle" height="60px" width="80px">
-            {% else %}
-            <img src="{% static 'profilepics/femalepropic.jpg' %}" alt="..." class=" rounded-circle" height="60px" width="80px">
-            {% endif %}
-            <h3 class="card-text mt-3 mb-0">{{request.user.username | upper }}</h3>
+            <img src="{{ request.user.profile.profile_pic.url }}" alt="" class="rounded-circle" height="80px" width="80px">
+            <h3 class="card-text mt-3 mb-0">{{ request.user.username }}</h3>
             <br>
             <a class="card-link btn btn-dark" href="{% url 'homefeed' username=request.user.username %}">Home</a>
             <a class="card-link btn btn-dark" href="{% url 'accounts:allusers' %}">Find Buddies</a>
@@ -28,7 +22,7 @@
             <ul class="list-group list-group-flush">
               <li class="list-group-item bg-light"><a class="text-dark" href="{%url 'accounts:userprofile' pk=request.user.id %}">My Profile</a></li>
               <li class="list-group-item bg-light"><a class="text-dark" href="{% url 'posts:for_user' username=request.user.username  %}">My posts</a></li>
-              <li class="list-group-item bg-light"><a class="text-dark" href="{% url 'groups:all' %}">Groups</a></li>
+              <li class="list-group-item bg-light"><a class="text-dark" href="{% url 'groups:all' %}">My Groups</a></li>
             </ul>
             <div class="card-body">
               <a class="card-link btn btn-dark" href="{% url 'accounts:logout' %}">Logout</a>

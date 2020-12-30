@@ -3,7 +3,7 @@
 
 {% block user_base %}
     <h4>Edit Details</h4>
-    <form method="POST">
+    <form method="POST" enctype="multipart/form-data">
         {% csrf_token %}
         <div class="form-group">
             <label for="username">Username</label>
