@@ -27,9 +27,9 @@ TEMPLATES_DIR = os.path.join(BASE_DIR, 'templates')
 SECRET_KEY = config.get('DEFAULT','secret-key')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = config.get('DEFAULT', 'debug').lower() == "true"
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = config.get('DEFAULT','allowed-host').split(" ")
 
 
 # Application definition
@@ -86,11 +86,11 @@ WSGI_APPLICATION = 'Buddy_Circle.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': config["Postgresql_localserver"]["name"],
-        'USER': config["Postgresql_localserver"]["user"], 
-        'PASSWORD': config["Postgresql_localserver"]["password"],
-        'HOST': config["Postgresql_localserver"]["host"], 
-        'PORT': config["Postgresql_localserver"]["port"],
+        'NAME': config["DEFAULT"]["name"],
+        'USER': config["DEFAULT"]["user"], 
+        'PASSWORD': config["DEFAULT"]["password"],
+        'HOST': config["DEFAULT"]["host"], 
+        'PORT': config["DEFAULT"]["port"],
     }
 }
 
