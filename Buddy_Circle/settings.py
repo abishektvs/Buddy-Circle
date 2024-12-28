@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 # for parsing confidential data from .ini file
 import configparser
 config = configparser.ConfigParser()
-config.read(r"confidential.ini")
+config.read(r"/etc/secrets/confidential.ini")
 
 import os
 
